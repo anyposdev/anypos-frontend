@@ -1,0 +1,169 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/**'
+      - 'packages/**'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [main]
+
+jobs:
+  # Detect which apps have changed
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      cashier: ${{ steps.filter.outputs.cashier }}
+      admin: ${{ steps.filter.outputs.admin }}
+      ui: ${{ steps.filter.outputs.ui }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            cashier:
+              - 'apps/cashier/**'
+              - 'packages/ui/**'
+            admin:
+              - 'apps/admin/**'
+              - 'packages/ui/**'
+            ui:
+              - 'packages/ui/**'
+
+  # Build Cashier App
+  build-cashier:
+    needs: changes
+    if: ${{ needs.changes.outputs.cashier == 'true' || needs.changes.outputs.ui == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+          
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        
+      - name: Build cashier app
+        # env:
+        #   VITE_API_URL: ${{ secrets.VITE_API_URL }}
+        #   VITE_APP_NAME: ${{ vars.VITE_APP_NAME }}
+        run: pnpm turbo run build --filter=@anypos/cashier...
+        
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cashier-dist
+          path: apps/cashier/dist
+          
+      - name: Deploy to VPS
+        if: github.ref == 'refs/heads/main'
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH || '/var/www' }}
+        run: |
+          echo "Deploying cashier app..."
+          # Setup SSH key
+          mkdir -p ~/.ssh
+          echo "$VPS_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          # Add host to known hosts to avoid prompt
+          ssh-keyscan -H $VPS_HOST >> ~/.ssh/known_hosts 2>/dev/null || true
+          # Deploy using scp with SSH key
+          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -r apps/cashier/dist/* $VPS_USER@$VPS_HOST:$DEPLOY_PATH/frontend-cashier/
+          # Cleanup
+          rm -f ~/.ssh/deploy_key
+
+  # Build Admin App
+  build-admin:
+    needs: changes
+    if: ${{ needs.changes.outputs.admin == 'true' || needs.changes.outputs.ui == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+          
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        
+      - name: Build admin app
+        # env:
+        #   VITE_API_URL: ${{ secrets.VITE_API_URL }}
+        #   VITE_APP_NAME: ${{ vars.VITE_APP_NAME }}
+        run: pnpm turbo run build --filter=@anypos/admin...
+        
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: admin-dist
+          path: apps/admin/dist
+          
+      - name: Deploy to VPS
+        if: github.ref == 'refs/heads/main'
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH || '/var/www' }}
+        run: |
+          echo "Deploying admin app..."
+          # Setup SSH key
+          mkdir -p ~/.ssh
+          echo "$VPS_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          # Add host to known hosts to avoid prompt
+          ssh-keyscan -H $VPS_HOST >> ~/.ssh/known_hosts 2>/dev/null || true
+          # Deploy using scp with SSH key
+          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -r apps/admin/dist/* $VPS_USER@$VPS_HOST:$DEPLOY_PATH/frontend-admin/
+          # Cleanup
+          rm -f ~/.ssh/deploy_key
+
+  # Lint and Type Check (always runs)
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+          
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        
+      - name: Lint
+        run: pnpm turbo run lint
+        
+      - name: Type check
+        run: pnpm turbo run typecheck

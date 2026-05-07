@@ -1,0 +1,27 @@
+{
+  "name": "@anypos/monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "dev:admin": "pnpm --filter @anypos/admin dev",
+    "dev:cashier": "pnpm --filter @anypos/cashier dev",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean && rm -rf node_modules .turbo"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.0.0",
+    "eslint": "^9.25.0",
+    "turbo": "^2.9.9",
+    "typescript": "^6.0.3"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
