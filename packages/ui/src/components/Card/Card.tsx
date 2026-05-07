@@ -7,7 +7,7 @@ import {
 } from '@heroui/react'
 
 export interface CardProps extends HeroCardProps {
-  /** Card content */
+  /** Card contents */
   children: React.ReactNode
 }
 
