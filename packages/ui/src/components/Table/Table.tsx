@@ -1,3 +1,4 @@
+import type { TableProps as HeroTableProps } from '@heroui/react'
 import {
   Table as HeroTable,
   TableBody,
@@ -10,7 +11,6 @@ import {
   TableRow,
   TableScrollContainer,
 } from '@heroui/react'
-import type { TableProps as HeroTableProps } from '@heroui/react'
 
 // Re-export table and all its sub-components
 export const Table = HeroTable

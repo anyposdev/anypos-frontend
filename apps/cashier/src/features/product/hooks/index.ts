@@ -1,1 +1,1 @@
-export { useProducts, type Product } from './useProducts'
+export { type Product, useProducts } from './useProducts'

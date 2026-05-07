@@ -1,6 +1,6 @@
-import { Card, CardBody, Button, Spinner, FormInput, FormSelect } from '@anypos/ui'
-import { useForm, FormProvider } from 'react-hook-form'
+import { Button, Card, CardBody, FormInput, FormSelect, Spinner } from '@anypos/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const loginSchema = z.object({
@@ -17,7 +17,7 @@ const roleOptions = [
   { id: 'cashier', label: 'Cashier' },
 ]
 
-export const LoginPage = () => {
+export function LoginPage() {
   const methods = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -31,7 +31,7 @@ export const LoginPage = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     await new Promise(resolve => setTimeout(resolve, 1000))
-    
+
     if (data.username && data.password) {
       localStorage.setItem('token', 'mock-token')
       localStorage.setItem('user', JSON.stringify({

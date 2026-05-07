@@ -15,7 +15,7 @@ const mockUsers: User[] = [
   { id: '4', name: 'Lisa Cashier', email: 'lisa@anypos.com', role: 'cashier', isActive: false },
 ]
 
-const fetchUsers = async (): Promise<User[]> => {
+async function fetchUsers(): Promise<User[]> {
   await new Promise(resolve => setTimeout(resolve, 600))
   return mockUsers
 }

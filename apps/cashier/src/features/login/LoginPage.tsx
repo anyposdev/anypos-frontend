@@ -1,6 +1,6 @@
 import { LoginForm } from './components'
 
-export const LoginPage = () => {
+export function LoginPage() {
   const handleLogin = async (username: string, password: string) => {
     return new Promise<void>((resolve, reject) => {
       setTimeout(() => {

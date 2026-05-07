@@ -1,3 +1,3 @@
-export { StatCard } from './StatCard'
-export { RecentOrders } from './RecentOrders'
 export { QuickActions } from './QuickActions'
+export { RecentOrders } from './RecentOrders'
+export { StatCard } from './StatCard'

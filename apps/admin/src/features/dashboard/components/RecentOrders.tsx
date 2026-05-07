@@ -11,7 +11,7 @@ interface RecentOrdersProps {
   orders: Order[]
 }
 
-export const RecentOrders = ({ orders }: RecentOrdersProps) => {
+export function RecentOrders({ orders }: RecentOrdersProps) {
   return (
     <Card>
       <CardHeader className="pb-0 pt-4 px-4">
@@ -24,7 +24,10 @@ export const RecentOrders = ({ orders }: RecentOrdersProps) => {
             className="flex items-center justify-between rounded-lg border p-3"
           >
             <div>
-              <p className="font-medium">Order #{order.id}</p>
+              <p className="font-medium">
+                Order #
+                {order.id}
+              </p>
               <p className="text-sm text-gray-600">{order.customer}</p>
             </div>
             <div className="text-right">

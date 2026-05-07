@@ -4,7 +4,7 @@ interface MainLayoutProps {
   children: ReactNode
 }
 
-export const MainLayout = ({ children }: MainLayoutProps) => {
+export function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="min-h-screen">
       {children}

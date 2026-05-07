@@ -17,7 +17,7 @@ const mockProducts: Product[] = [
   { id: '4', name: 'Pizza', description: 'Cheese pizza', price: 12.99, category: 'Food', stock: 30 },
 ]
 
-const fetchProducts = async (): Promise<Product[]> => {
+async function fetchProducts(): Promise<Product[]> {
   await new Promise(resolve => setTimeout(resolve, 500))
   return mockProducts
 }

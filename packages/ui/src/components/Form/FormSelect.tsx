@@ -1,5 +1,5 @@
-import { Select, ListBox, Label } from '@heroui/react'
-import { useFormContext, Controller } from 'react-hook-form'
+import { Label, ListBox, Select } from '@heroui/react'
+import { Controller, useFormContext } from 'react-hook-form'
 
 export interface FormSelectOption {
   id: string
@@ -15,7 +15,7 @@ export interface FormSelectProps {
   required?: boolean
 }
 
-export const FormSelect = ({ name, label, options, placeholder, disabled = false, required = false }: FormSelectProps) => {
+export function FormSelect({ name, label, options, placeholder, disabled = false, required = false }: FormSelectProps) {
   const { control, formState: { errors } } = useFormContext()
   const error = errors[name]?.message as string | undefined
 
@@ -45,7 +45,7 @@ export const FormSelect = ({ name, label, options, placeholder, disabled = false
           </Select.Trigger>
           <Select.Popover>
             <ListBox>
-              {options.map((option) => (
+              {options.map(option => (
                 <ListBox.Item key={option.id} id={option.id} textValue={option.label}>
                   {option.label}
                 </ListBox.Item>

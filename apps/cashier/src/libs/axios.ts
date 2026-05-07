@@ -1,3 +1,4 @@
+import type { AxiosError } from 'axios'
 import axios from 'axios'
 
 export const api = axios.create({
@@ -16,15 +17,15 @@ api.interceptors.request.use(
     }
     return config
   },
-  (error) => {
+  async (error) => {
     return Promise.reject(error)
   },
 )
 
 // Response interceptor - handle errors
 api.interceptors.response.use(
-  (response) => response,
-  (error) => {
+  response => response,
+  async (error: AxiosError) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('token')
       window.location.href = '/'

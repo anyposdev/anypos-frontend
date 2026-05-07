@@ -1,5 +1,5 @@
 import { formatPrice } from '@anypos/ui'
-import { StatCard, RecentOrders, QuickActions } from './components'
+import { QuickActions, RecentOrders, StatCard } from './components'
 
 const stats = {
   totalSales: 15420.50,
@@ -15,11 +15,11 @@ const mockOrders = [
   { id: '1004', customer: 'Walk-in Customer', total: 8.99, status: 'Pending' },
 ]
 
-export const DashboardPage = () => {
+export function DashboardPage() {
   return (
     <div>
       <h1 className="mb-6 text-2xl font-bold">Dashboard</h1>
-      
+
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <StatCard
           title="Today's Sales"

@@ -1,5 +1,5 @@
-import { Input as HeroInput } from '@heroui/react'
 import type { InputProps as HeroInputProps } from '@heroui/react'
+import { Input as HeroInput } from '@heroui/react'
 
 export interface InputProps extends HeroInputProps {
   /** Optional: Add left icon/prefix */
@@ -8,6 +8,6 @@ export interface InputProps extends HeroInputProps {
   endContent?: React.ReactNode
 }
 
-export const Input = (props: InputProps) => {
+export function Input(props: InputProps) {
   return <HeroInput {...props} />
 }

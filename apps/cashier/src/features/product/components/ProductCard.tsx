@@ -1,12 +1,12 @@
+import type { Product } from '../hooks'
 import { Button, Card, CardBody, CardFooter, CardHeader, formatPrice } from '@anypos/ui'
 import { useCartStore } from '@/features/cart'
-import type { Product } from '../hooks'
 
 interface ProductCardProps {
   product: Product
 }
 
-export const ProductCard = ({ product }: ProductCardProps) => {
+export function ProductCard({ product }: ProductCardProps) {
   const addItem = useCartStore(state => state.addItem)
 
   return (

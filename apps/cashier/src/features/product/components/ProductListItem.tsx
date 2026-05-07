@@ -1,11 +1,11 @@
-import { Card, CardBody, formatPrice } from '@anypos/ui'
 import type { Product } from '../hooks'
+import { Card, CardBody, formatPrice } from '@anypos/ui'
 
 interface ProductListItemProps {
   product: Product
 }
 
-export const ProductListItem = ({ product }: ProductListItemProps) => {
+export function ProductListItem({ product }: ProductListItemProps) {
   return (
     <Card>
       <CardBody className="flex items-center justify-between p-4">

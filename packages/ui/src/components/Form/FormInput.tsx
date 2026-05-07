@@ -1,13 +1,13 @@
-import { Input } from '../Input/Input'
 import type { InputProps } from '../Input/Input'
-import { useFormContext, Controller } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
+import { Input } from '../Input/Input'
 
 export interface FormInputProps extends Omit<InputProps, 'name'> {
   name: string
   label?: string
 }
 
-export const FormInput = ({ name, label, ...props }: FormInputProps) => {
+export function FormInput({ name, label, ...props }: FormInputProps) {
   const { control, formState: { errors } } = useFormContext()
   const error = errors[name]?.message as string | undefined
 

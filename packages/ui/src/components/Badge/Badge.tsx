@@ -1,11 +1,11 @@
-import { Badge as HeroBadge, BadgeRoot } from '@heroui/react'
 import type { BadgeProps as HeroBadgeProps } from '@heroui/react'
+import { BadgeRoot, Badge as HeroBadge } from '@heroui/react'
 
 export interface BadgeProps extends HeroBadgeProps {
   children: React.ReactNode
 }
 
-export const Badge = (props: BadgeProps) => {
+export function Badge(props: BadgeProps) {
   return <HeroBadge {...props} />
 }
 

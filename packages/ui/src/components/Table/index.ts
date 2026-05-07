@@ -6,8 +6,8 @@ export {
   TableContent,
   TableFooter,
   TableHeader,
+  type TableProps,
   TableRoot,
   TableRow,
   TableScrollContainer,
-  type TableProps,
 } from './Table'

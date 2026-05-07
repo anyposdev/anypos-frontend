@@ -4,8 +4,8 @@
 
     /* Environment & Language */
     "target": "ES2025",
-    "lib": ["ES2025", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
+    "lib": ["ES2025", "DOM", "DOM.Iterable"],
     "moduleDetection": "force",
 
     /* Module Resolution */
@@ -17,30 +17,30 @@
 
     /* Type Checking - Strictness */
     "strict": true,
-    "noImplicitOverride": true,
-    "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
 
     /* Type Checking - Code Quality */
     "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
     "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-
-    /* Modules */
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
 
     /* Output */
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true,
     "noEmit": true,
 
+    "sourceMap": true,
     /* Interop */
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+
+    /* Modules */
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true
   },
   "exclude": ["node_modules", "dist", ".turbo"]
 }

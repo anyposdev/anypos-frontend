@@ -1,1 +1,1 @@
-export { Spinner, SpinnerRoot, type SpinnerProps } from './Spinner'
+export { Spinner, type SpinnerProps, SpinnerRoot } from './Spinner'

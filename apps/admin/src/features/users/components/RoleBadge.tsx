@@ -10,7 +10,7 @@ const roleColors = {
   cashier: 'success' as const,
 }
 
-export const RoleBadge = ({ role }: RoleBadgeProps) => {
+export function RoleBadge({ role }: RoleBadgeProps) {
   return (
     <Chip color={roleColors[role]} size="sm" variant="soft">
       {role}

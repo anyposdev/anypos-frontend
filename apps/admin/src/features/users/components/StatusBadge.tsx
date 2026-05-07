@@ -4,7 +4,7 @@ interface StatusBadgeProps {
   isActive: boolean
 }
 
-export const StatusBadge = ({ isActive }: StatusBadgeProps) => {
+export function StatusBadge({ isActive }: StatusBadgeProps) {
   return (
     <Chip color={isActive ? 'success' : 'default'} size="sm" variant="soft">
       {isActive ? 'Active' : 'Inactive'}

@@ -1,9 +1,9 @@
-import { Spinner as HeroSpinner, SpinnerRoot } from '@heroui/react'
 import type { SpinnerProps as HeroSpinnerProps } from '@heroui/react'
+import { Spinner as HeroSpinner, SpinnerRoot } from '@heroui/react'
 
 export interface SpinnerProps extends HeroSpinnerProps {}
 
-export const Spinner = (props: SpinnerProps) => {
+export function Spinner(props: SpinnerProps) {
   return <HeroSpinner {...props} />
 }
 

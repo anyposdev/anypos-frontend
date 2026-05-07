@@ -1,6 +1,6 @@
-import { Card, CardBody, Button, Spinner, FormInput } from '@anypos/ui'
-import { useForm, FormProvider } from 'react-hook-form'
+import { Button, Card, CardBody, FormInput, Spinner } from '@anypos/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const loginSchema = z.object({
@@ -17,7 +17,7 @@ interface LoginFormProps {
   children?: React.ReactNode
 }
 
-export const LoginForm = ({ onSubmit, error, title = 'Login', children }: LoginFormProps) => {
+export function LoginForm({ onSubmit, error, title = 'Login', children }: LoginFormProps) {
   const methods = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -29,13 +29,7 @@ export const LoginForm = ({ onSubmit, error, title = 'Login', children }: LoginF
   const { handleSubmit, formState: { isSubmitting } } = methods
 
   const handleFormSubmit = async (data: LoginFormData) => {
-    try {
-      await onSubmit(data.username, data.password)
-    }
-    catch (err) {
-      // Error handling is done by the parent component
-      throw err
-    }
+    await onSubmit(data.username, data.password)
   }
 
   return (

@@ -14,7 +14,7 @@ const colorClasses = {
   danger: 'bg-danger-50 border-danger-200',
 }
 
-export const StatCard = ({ title, value, change, color }: StatCardProps) => {
+export function StatCard({ title, value, change, color }: StatCardProps) {
   return (
     <Card className={cn('border', colorClasses[color])}>
       <CardBody className="p-4">

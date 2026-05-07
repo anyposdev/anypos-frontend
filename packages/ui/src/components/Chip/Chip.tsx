@@ -1,12 +1,12 @@
-import { Chip as HeroChip, ChipRoot } from '@heroui/react'
 import type { ChipProps as HeroChipProps } from '@heroui/react'
+import { ChipRoot, Chip as HeroChip } from '@heroui/react'
 
 export interface ChipProps extends HeroChipProps {
   /** Chip content */
   children: React.ReactNode
 }
 
-export const Chip = (props: ChipProps) => {
+export function Chip(props: ChipProps) {
   return <HeroChip {...props} />
 }
 
